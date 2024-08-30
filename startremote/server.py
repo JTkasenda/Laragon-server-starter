@@ -31,5 +31,6 @@ def start_server(host, port, command):
 
 if __name__ == "__main__":
     host = "0.0.0.0"  # Listen on all interfaces
+    apache_path = r"C:\laragon\bin\apache\Apache24\bin\httpd.exe"
     port = 9999       # Port to listen on
-    start_server(host, port)
+    start_server(host, port, apache_path)
