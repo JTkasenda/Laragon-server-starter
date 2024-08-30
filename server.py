@@ -21,3 +21,5 @@ while True:
         response = json.dumps(processes)
         client_socket.sendall(response.encode('utf-8'))
         client_socket.close()
+        
+        print(response)
