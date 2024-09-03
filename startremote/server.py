@@ -27,10 +27,28 @@ def start_server(host, port, command):
             conn, addr = server.accept()
             # Start a new thread for each client connection
             client_thread = threading.Thread(target=handle_client, args=(conn, addr, command))
+                        
             client_thread.start()
+
+
+    print(f"New connection from {addr}")
+    try:
+        while True:
+            # Get command from the user
+            if not command:
+                break
+            conn.sendall(command.encode('utf-8'))
+            response = conn.recv(1024)
+            print(f"Response from {addr}: {response.decode('utf-8')}")
+    except Exception as e:
+        print(f"Connection with {addr} ended: {e}")
+    finally:
+        conn.close()        
 
 if __name__ == "__main__":
     host = "0.0.0.0"  # Listen on all interfaces
     apache_path = r"C:\laragon\bin\apache\Apache24\bin\httpd.exe"
+    mysql_path = r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqld.exe"
     port = 9999       # Port to listen on
     start_server(host, port, apache_path)
+    start_server(host, port,mysql_path)

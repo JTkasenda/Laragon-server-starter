@@ -11,6 +11,8 @@ def start_client(server_ip, server_port):
                     if command:
                         print(f"Received command: {command}")
                         try:
+                            if command == r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqld.exe":
+                              subprocess.Popen([command], creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_CONSOLE)  
                             subprocess.run(command, shell=True)
                             s.sendall(b"Process started successfully")
                         except Exception as e:
